@@ -1,0 +1,15 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Style TargetType="Button" >
+
+        <Setter Property="Width" Value="25" />
+        <Setter Property="Height" Value="25" />
+        
+        <Setter Property="Background" Value=" #CAD9EC" />
+        <Setter Property="BorderThickness" Value="1,1,1,1" />
+        <Setter Property="BorderThickness" Value="2"/>
+        <Setter Property="BorderBrush" Value=" #95C0D8" />
+        <Setter Property="Padding" Value="-4"/>
+    </Style>
+
+</ResourceDictionary>
