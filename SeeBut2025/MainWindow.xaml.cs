@@ -23,7 +23,7 @@ namespace SeeBat2025
         public MainWindow()
         {
             InitializeComponent();
-            addButton();
+            //addButton();
             
         }
 
