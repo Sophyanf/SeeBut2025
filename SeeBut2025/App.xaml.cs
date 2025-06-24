@@ -6,7 +6,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 
-namespace SeeBut2025
+namespace SeeBat2025
 {
     /// <summary>
     /// Логика взаимодействия для App.xaml

@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace SeeBut2025.Properties
+namespace SeeBat2025.Properties
 {
 
 

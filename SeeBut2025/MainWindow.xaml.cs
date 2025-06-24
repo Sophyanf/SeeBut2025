@@ -13,7 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace SeeBut2025
+namespace SeeBat2025
 {
     /// <summary>
     /// Логика взаимодействия для MainWindow.xaml
@@ -23,7 +23,21 @@ namespace SeeBut2025
         public MainWindow()
         {
             InitializeComponent();
+            addButton();
             
+        }
+
+        private void addButton ()
+        {
+            
+            for (int i = 0; i < 100; i++)
+            {
+                Button button = new Button();
+                field1.Children.Add(button);
+                button.Name = "A" + i.ToString();
+                button.Content = "A" + i.ToString();
+            }
+                
         }
     }
 }
