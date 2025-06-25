@@ -18,7 +18,6 @@ namespace SeeBat2025
         public List<Cell> GameField { get; set; } = new List<Cell>();
         private List<Ship> ShipsList = new List<Ship>();
         private StartCellsPossible startCellsPossible { get; set; } = new StartCellsPossible();
-        
 
         int count = 0;
 
@@ -27,8 +26,7 @@ namespace SeeBat2025
             fillList();
             fillShips();
             fieldGame = GameField;
-            
-        }
+            }
 
         #region PropertyChanged
         public event PropertyChangedEventHandler PropertyChanged;
@@ -45,14 +43,32 @@ namespace SeeBat2025
         }
         #endregion
 
-        private List<Cell> fieldGame = new List<Cell>() ;
-        public List<Cell> FieldGame
+        private List<Button> buttonsList = new List<Button>() ;
+
+        private void addButton()
+        {
+
+            for (int i = 0; i < 100; i++)
+            {
+                Button button = new Button();
+                buttonsList.Add(button);
+                button.Content = GameField[i].Value;
+                button.Command = 
+            }
+        }
+        public List<Button> ButtonsList
 
         {
-            get { return fieldGame; }
+            get { return buttonsList; }
             set
             {
-                fieldGame = value;
+
+                for (int i = 0; i < 100; i++)
+                {
+                    Button button = new Button();
+                    button.Name = "A" + i.ToString();
+                    button.Content = "A" + i.ToString();
+                }
                 OnPropertyChanged();
             }
         }
@@ -147,6 +163,11 @@ namespace SeeBat2025
                 shipCreat(1);
                 Thread.Sleep(1);
             }
+        }
+
+        public void GameCellStatusClick(Button button)
+        {
+            button.Visibility = Visibility.Hidden;
         }
         
     }
