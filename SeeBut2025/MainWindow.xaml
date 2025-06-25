@@ -16,24 +16,7 @@
 
 
     <Grid x:Name="MainGrid">
-        <DataGrid AutoGenerateColumns="False" HorizontalGridLinesBrush="#CAD9EC"
-          RowBackground="White" AlternatingRowBackground="White"
-          ItemsSource="{Binding  FieldGame}">
-
-
-            <DataGrid.Columns>
-                <DataGridTextColumn Header="Объект" Binding="{Binding Path=Value}" Width="300">
-                    <DataGridTextColumn.ElementStyle>
-                        <Style TargetType="TextBlock">
-                            <Setter Property="TextWrapping" Value="Wrap"></Setter>
-                        </Style>
-                    </DataGridTextColumn.ElementStyle>
-                </DataGridTextColumn>
-                <DataGridTextColumn Header="Заказчик" Binding="{Binding Path=PersonKontragent}" Width="100" />
-                <DataGridTextColumn Header="Проект"  Binding="{Binding Path=PersonDocument}" Width="100" />
-
-            </DataGrid.Columns>
-        </DataGrid>
+      
         <UniformGrid Name="field1" Rows="10" Columns="10" Width="250" Height="250"/>
     </Grid>
 

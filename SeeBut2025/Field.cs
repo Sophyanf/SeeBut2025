@@ -9,14 +9,16 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls;
 
 namespace SeeBat2025
 {
-    internal class Field
+    public class Field
     {
         public List<Cell> GameField { get; set; } = new List<Cell>();
         private List<Ship> ShipsList = new List<Ship>();
         private StartCellsPossible startCellsPossible { get; set; } = new StartCellsPossible();
+        
 
         int count = 0;
 
@@ -25,7 +27,8 @@ namespace SeeBat2025
             fillList();
             fillShips();
             fieldGame = GameField;
-            }
+            
+        }
 
         #region PropertyChanged
         public event PropertyChangedEventHandler PropertyChanged;
@@ -145,5 +148,6 @@ namespace SeeBat2025
                 Thread.Sleep(1);
             }
         }
+        
     }
 }

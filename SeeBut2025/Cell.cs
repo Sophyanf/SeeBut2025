@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SeeBat2025.Resources
 {
-    internal class Cell
+    public class Cell
     {
         public int X { get; set; }
         public int Y { get; set; }

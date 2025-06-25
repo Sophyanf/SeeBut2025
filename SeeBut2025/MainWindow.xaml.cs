@@ -20,11 +20,13 @@ namespace SeeBat2025
     /// </summary>
     public partial class MainWindow : Window
     {
+        private List<Button> buttonsList = new List<Button>();
+        public Field field { get; set; } = new Field();
+
         public MainWindow()
         {
             InitializeComponent();
             addButton();
-            
         }
 
         private void addButton ()
@@ -34,10 +36,17 @@ namespace SeeBat2025
             {
                 Button button = new Button();
                 field1.Children.Add(button);
-                button.Name = "A" + i.ToString();
-                button.Content = "A" + i.ToString();
+                buttonsList.Add(button);
+                button.Click += playerClick;
             }
                 
+        }
+        void playerClick(object sender, EventArgs e)
+        {
+            Button playerButton = (Button)sender;
+            playerButton.IsEnabled = false;
+            int index = buttonsList.IndexOf(playerButton);
+            playerButton.Content = field.GameField[index].Value;
         }
     }
 }
