@@ -16,6 +16,7 @@ namespace SeeBat2025
     public class Field
     {
         public List<Cell> GameField { get; set; } = new List<Cell>();
+        public List<Cell> FillCells { get; set; } = new List<Cell>();
         private List<Ship> ShipsList = new List<Ship>();
         private StartCellsPossible startCellsPossible { get; set; } = new StartCellsPossible();
 
@@ -43,35 +44,18 @@ namespace SeeBat2025
         }
         #endregion
 
-        private List<Button> buttonsList = new List<Button>() ;
-
-        private void addButton()
-        {
-
-            for (int i = 0; i < 100; i++)
-            {
-                Button button = new Button();
-                buttonsList.Add(button);
-                button.Content = GameField[i].Value;
-                button.Command = 
-            }
-        }
-        public List<Button> ButtonsList
+        private List<Cell> fieldGame = new List<Cell>() ;
+        public List<Cell> FieldGame
 
         {
-            get { return buttonsList; }
+            get { return fieldGame; }
             set
             {
-
-                for (int i = 0; i < 100; i++)
-                {
-                    Button button = new Button();
-                    button.Name = "A" + i.ToString();
-                    button.Content = "A" + i.ToString();
-                }
+                fieldGame = value;
                 OnPropertyChanged();
             }
         }
+
         private void fillList()
         {
             int count = 0;
@@ -120,11 +104,29 @@ namespace SeeBat2025
                 }
             }
             ShipsList.Add(ship);
+            fillingListCells(ship);
             startCellsPossible.RemoveStartCells(ship, 3);
             startCellsPossible.RemoveStartCells(ship, 2);
             startCellsPossible.RemoveStartCells(ship, 1);
         }
 
+        private void fillingListCells (Ship ship)
+        {
+            for (int i = 0; i < ship.SizeShip; i++) {
+                Cell cell = new Cell();
+                if (ship.ShipPozV_G == "vertical")
+                {
+                    cell.X = ship.StartCell.X;
+                    cell.Y = ship.StartCell.Y + i;
+                }   
+                else
+                    {
+                        cell.X = ship.StartCell.X + i;
+                        cell.Y = ship.StartCell.Y;
+                    }
+            FillCells.Add(cell);
+            }
+        }
         private string shipType()
         {
             string typeShip = "";
@@ -164,11 +166,5 @@ namespace SeeBat2025
                 Thread.Sleep(1);
             }
         }
-
-        public void GameCellStatusClick(Button button)
-        {
-            button.Visibility = Visibility.Hidden;
-        }
-        
     }
 }

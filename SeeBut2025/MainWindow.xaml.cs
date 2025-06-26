@@ -1,4 +1,6 @@
-﻿using System;
+﻿using SeeBat2025.Resources;
+using SeeBut2025;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -22,6 +24,7 @@ namespace SeeBat2025
     {
         private List<Button> buttonsList = new List<Button>();
         public Field field { get; set; } = new Field();
+        public Battle battle { get; set; } = new Battle();
 
         public MainWindow()
         {
@@ -47,6 +50,8 @@ namespace SeeBat2025
             playerButton.IsEnabled = false;
             int index = buttonsList.IndexOf(playerButton);
             playerButton.Content = field.GameField[index].Value;
+            if (field.GameField[index].Value != ".")
+            battle.checkCell(field.GameField[index]);
         }
     }
 }
