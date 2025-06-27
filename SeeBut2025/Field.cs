@@ -15,20 +15,24 @@ namespace SeeBat2025
 {
     public class Field
     {
-        public List<Cell> GameField { get; set; } = new List<Cell>();
-        public List<Cell> FillCells { get; set; } = new List<Cell>();
-        private List<Ship> ShipsList = new List<Ship>();
-        private StartCellsPossible startCellsPossible { get; set; } = new StartCellsPossible();
+        public List<Cell> GameField { get; set; }
+        public List<Cell> FillCells { get; set; }
+        public List<Ship> ShipsList { get; set; }
+        //private StartCellsPossible startCellsPossible { get; set; } = new StartCellsPossible();
 
         int count = 0;
 
         public Field()
         {
-            fillList();
-            fillShips();
-            fieldGame = GameField;
+            GameField = new List<Cell>();
+            FillCells = new List<Cell>();
+            ShipsList = new List<Ship>();
+            //fillList();
+           // fillShips();
+            //fieldGame = GameField;
+            MessageBox.Show("jjj");
             }
-
+        /*
         #region PropertyChanged
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -43,8 +47,8 @@ namespace SeeBat2025
             OnPropertyChanged(property);
         }
         #endregion
-
-        private List<Cell> fieldGame = new List<Cell>() ;
+        
+        private List<Cell> fieldGame; 
         public List<Cell> FieldGame
 
         {
@@ -84,6 +88,7 @@ namespace SeeBat2025
                 ShipPozV_G = typeShip,
                 StartCell = startCell
             };
+            MessageBox.Show(count.ToString());
             addShip(ship);
         }
 
@@ -104,6 +109,7 @@ namespace SeeBat2025
                 }
             }
             ShipsList.Add(ship);
+            //MessageBox.Show(ShipsList.Count.ToString() + " : " + ship.StartCell.X.ToString() + " " + ship.StartCell.Y.ToString());
             fillingListCells(ship);
             startCellsPossible.RemoveStartCells(ship, 3);
             startCellsPossible.RemoveStartCells(ship, 2);
@@ -166,5 +172,6 @@ namespace SeeBat2025
                 Thread.Sleep(1);
             }
         }
+        */
     }
 }

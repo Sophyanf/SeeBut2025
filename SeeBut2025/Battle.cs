@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 using System.Windows;
 
 namespace SeeBut2025
-{
+{ 
     public class Battle : Field
     {
         public void checkCell (Cell cell)
@@ -16,11 +16,10 @@ namespace SeeBut2025
             int indexCell = 0;
             //indexCell = FillCells.IndexOf(FillCells.FirstOrDefault(c => c.X == cell.X && c.Y == cell.Y));
             string string1 = "";
-            foreach (var cell1 in FillCells)
-            {
-                string1 +=cell1.X.ToString() + " " + cell1.Y.ToString() + "\n";
+            foreach (var ship in ShipsList)
+                string1 += ship.StartCell.X.ToString() + " " + ship.StartCell.Y.ToString() + "\n";
 
-            }
+            
             MessageBox.Show(string1);
         }
 
@@ -44,4 +43,5 @@ namespace SeeBut2025
 
 
     }
+    
 }

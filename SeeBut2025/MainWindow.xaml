@@ -8,10 +8,7 @@
         xmlns:vm="clr-namespace:SeeBat2025"
         Title="MainWindow" Height="450" Width="800">
 
-    <Window.DataContext>
-
-        <vm:Field x:Name="Field"></vm:Field>
-    </Window.DataContext>
+  
 
 
 

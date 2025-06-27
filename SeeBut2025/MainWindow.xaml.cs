@@ -3,6 +3,7 @@ using SeeBut2025;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -23,13 +24,14 @@ namespace SeeBat2025
     public partial class MainWindow : Window
     {
         private List<Button> buttonsList = new List<Button>();
-        public Field field { get; set; } = new Field();
-        public Battle battle { get; set; } = new Battle();
+        public Field field ;
+       public Battle battle { get; set; } = new Battle();
 
         public MainWindow()
         {
+            field = new Field();
             InitializeComponent();
-            addButton();
+           // addButton();
         }
 
         private void addButton ()
@@ -40,6 +42,7 @@ namespace SeeBat2025
                 Button button = new Button();
                 field1.Children.Add(button);
                 buttonsList.Add(button);
+                button.Content = field.GameField[i].Value;
                 button.Click += playerClick;
             }
                 
@@ -50,8 +53,8 @@ namespace SeeBat2025
             playerButton.IsEnabled = false;
             int index = buttonsList.IndexOf(playerButton);
             playerButton.Content = field.GameField[index].Value;
-            if (field.GameField[index].Value != ".")
-            battle.checkCell(field.GameField[index]);
+            //if (field.GameField[index].Value != ".")
+               // playerButton.checkCell(field.GameField[index]);
         }
     }
 }

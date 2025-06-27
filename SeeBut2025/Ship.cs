@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace SeeBat2025
 {
-    internal class Ship
+    public class Ship
     {
         public Cell StartCell { get; set; }
         public string ShipPozV_G { get; set; }
