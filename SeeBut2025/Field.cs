@@ -18,7 +18,7 @@ namespace SeeBat2025
         public List<Cell> GameField { get; set; }
         public List<Cell> FillCells { get; set; }
         public List<Ship> ShipsList { get; set; }
-        //private StartCellsPossible startCellsPossible { get; set; } = new StartCellsPossible();
+        private StartCellsPossible startCellsPossible { get; set; } = new StartCellsPossible();
 
         int count = 0;
 
@@ -27,12 +27,12 @@ namespace SeeBat2025
             GameField = new List<Cell>();
             FillCells = new List<Cell>();
             ShipsList = new List<Ship>();
-            //fillList();
-           // fillShips();
-            //fieldGame = GameField;
+            fillList();
+            fillShips();
+            fieldGame = GameField;
             MessageBox.Show("jjj");
             }
-        /*
+        
         #region PropertyChanged
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -172,6 +172,6 @@ namespace SeeBat2025
                 Thread.Sleep(1);
             }
         }
-        */
+        
     }
 }
