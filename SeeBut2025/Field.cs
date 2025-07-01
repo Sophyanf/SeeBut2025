@@ -16,7 +16,6 @@ namespace SeeBat2025
     public class Field
     {
         public List<Cell> GameField { get; set; }
-        public List<Cell> FillCells { get; set; }
         public List<Ship> ShipsList { get; set; }
         private StartCellsPossible startCellsPossible { get; set; } = new StartCellsPossible();
 
@@ -25,12 +24,10 @@ namespace SeeBat2025
         public Field()
         {
             GameField = new List<Cell>();
-            FillCells = new List<Cell>();
             ShipsList = new List<Ship>();
             fillList();
             fillShips();
             fieldGame = GameField;
-            MessageBox.Show("jjj");
             }
         
         #region PropertyChanged
@@ -77,18 +74,11 @@ namespace SeeBat2025
         {
             count++;
             string typeShip = shipType();
-            //string typeShip = "horizontal";
-            //string typeShip = "vertical";
             List<Cell> workList = startCellsPossible.ChangeList(typeShip, sizeShip);
             int startCellNum = new Random().Next(0, workList.Count);
             Cell startCell = workList.ElementAtOrDefault(startCellNum);
-            Ship ship = new Ship()
-            {
-                SizeShip = sizeShip,
-                ShipPozV_G = typeShip,
-                StartCell = startCell
-            };
-            MessageBox.Show(count.ToString());
+            Ship ship = new Ship(startCell, typeShip, sizeShip);
+            //MessageBox.Show(count.ToString());
             addShip(ship);
         }
 
@@ -130,7 +120,7 @@ namespace SeeBat2025
                         cell.X = ship.StartCell.X + i;
                         cell.Y = ship.StartCell.Y;
                     }
-            FillCells.Add(cell);
+                ShipsList.Add(ship);
             }
         }
         private string shipType()
@@ -172,6 +162,15 @@ namespace SeeBat2025
                 Thread.Sleep(1);
             }
         }
-        
+        public void shipsCoord ()
+        {
+            string string1 = "";
+            foreach (var ship in ShipsList)
+                string1 += ship.StartCell.X.ToString() + " " + ship.StartCell.Y.ToString() + "\n";
+
+
+            MessageBox.Show(string1);
+        }
     }
 }
+ 

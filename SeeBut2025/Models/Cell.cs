@@ -15,7 +15,7 @@ namespace SeeBat2025.Resources
         public Cell(int x, int y) { X = x; Y = y;}
         public override string ToString()
         {
-            return "arr";
+            return X.ToString() + " " + Y.ToString();
         }
     }
 

@@ -58,8 +58,8 @@
     <Compile Include="ActionCommand.cs" />
     <Compile Include="Battle.cs" />
     <Compile Include="Field.cs" />
-    <Compile Include="Cell.cs" />
-    <Compile Include="Ship.cs" />
+    <Compile Include="Models\Cell.cs" />
+    <Compile Include="Models\Ship.cs" />
     <Compile Include="StartCellsPossible.cs" />
     <Page Include="Resources\Elements.xaml">
       <SubType>Designer</SubType>

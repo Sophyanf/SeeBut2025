@@ -54,7 +54,16 @@ namespace SeeBat2025
             int index = buttonsList.IndexOf(playerButton);
             playerButton.Content = battle.GameField[index].Value;
             if (battle.GameField[index].Value != ".")
-                battle.checkCell(battle.GameField[index]);
+                battle.checkCell(battle.GameField[index].ToString());
+            fillListButtons();
+        }
+
+        void fillListButtons()
+        {
+            for (int i = 0; i < buttonsList.Count; i++)
+            {
+                buttonsList[i].Content = battle.GameField[i].Value;
+            }
         }
     }
 }
