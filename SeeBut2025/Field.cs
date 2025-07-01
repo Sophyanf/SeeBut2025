@@ -28,7 +28,8 @@ namespace SeeBat2025
             fillList();
             fillShips();
             fieldGame = GameField;
-            }
+            MessageBox.Show(ShipsList.Count.ToString());
+        }
         
         #region PropertyChanged
         public event PropertyChangedEventHandler PropertyChanged;
@@ -120,7 +121,6 @@ namespace SeeBat2025
                         cell.X = ship.StartCell.X + i;
                         cell.Y = ship.StartCell.Y;
                     }
-                ShipsList.Add(ship);
             }
         }
         private string shipType()

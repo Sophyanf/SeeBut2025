@@ -63,6 +63,8 @@ namespace SeeBat2025
             for (int i = 0; i < buttonsList.Count; i++)
             {
                 buttonsList[i].Content = battle.GameField[i].Value;
+                if (battle.GameField[i].Value == "*")
+                    buttonsList[i].IsEnabled = false;
             }
         }
     }
