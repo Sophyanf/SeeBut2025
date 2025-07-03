@@ -12,11 +12,11 @@
 
 
 
-    <Grid x:Name="MainGrid">
+    <DockPanel x:Name="MainGrid">
       
         <UniformGrid Name="field1" Rows="10" Columns="10" Width="250" Height="250"/>
-          
-    </Grid>
+        <Button Name="Comp" Width ="80" Height="40"/>
+    </DockPanel>
 
 
 

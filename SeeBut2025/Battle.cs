@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using static SeeBut2025.Battle;
 
 namespace SeeBut2025
 { 
@@ -27,6 +28,7 @@ namespace SeeBut2025
         public void ComputerLogic(Cell cell)
         {
             injured.countInjuredCells++;
+            injured.possibleCells = new List<Cell>();
             injured.possibleCells.Clear();
             if (!checkCell(cell.ToString())) {
                 if (injured.cellFirst == null) {
@@ -43,15 +45,16 @@ namespace SeeBut2025
                 {
                     if (injured.cellLastInjured == null)
                     {
-
-                        injured.cellSecond = cell;
-                        if (injured.cellFirst.X == injured.cellSecond.X) { 
+                   
+                        injured.cellLastInjured = cell;
+                        if (injured.cellFirst.X == injured.cellLastInjured.X) { 
 
                             injured.injuredPozV_G = "Vertical";
                             foreach (var gameCell in GameField)
                             {
-                                if ((gameCell.Y == cell.Y && (gameCell.X == cell.X - 1 || gameCell.X == cell.X - 1)) ||
-                                    (gameCell.X == cell.X && (gameCell.Y == cell.Y - 1 || gameCell.Y == cell.Y + 1)))
+                                if ((gameCell.X == cell.X && 
+                                    (gameCell.Y > injured.cellLastInjured.Y-maxSizeShip && gameCell.Y < injured.cellFirst.Y) ||
+                                    (gameCell.Y > injured.cellLastInjured.Y  && gameCell.Y < injured.cellFirst.Y + maxSizeShip)))
                                 {
                                     if (gameCell.Value != "*") injured.possibleCells.Add(gameCell);
                                 }
@@ -59,9 +62,15 @@ namespace SeeBut2025
                         }
                         else injured.injuredPozV_G = "Horizontal";
 
-
+                        }
                     }
                 }
+                        for (int i = 0; i < GameField.Count; i++)
+                        {
+                            for (int j = 0; j < injured.possibleCells.Count; j++) {
+                                if (GameField[i].ToString() == injured.possibleCells[j].ToString()) GameField[i].Value = "!";
+                                    
+                                        }
              }
         }
         public bool checkCell(String cell)

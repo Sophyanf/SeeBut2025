@@ -32,6 +32,7 @@ namespace SeeBat2025
             //field = new Field();
             InitializeComponent();
             addButton();
+            Comp.Click += computerClick;
         }
 
         private void addButton ()
@@ -53,6 +54,21 @@ namespace SeeBat2025
             playerButton.IsEnabled = false;
             int index = buttonsList.IndexOf(playerButton);
             playerButton.Content = battle.GameField[index].Value;
+            if (battle.GameField[index].Value != ".")
+                battle.ComputerLogic(battle.GameField[index]);
+            fillListButtons();
+            for (int i = 0; i < battle.GameField.Count; i++)
+                if (battle.GameField[i].Value == "!") battle.GameField[i].Value = ".";
+        }
+
+        void computerClick(object sender, EventArgs e)
+        {
+            Random rnd = new Random();
+            int type = rnd.Next(0, 100);
+            Button button = (Button)sender;
+            button.IsEnabled = false;
+            int index = buttonsList.IndexOf(button);
+            button.Content = battle.GameField[index].Value;
             if (battle.GameField[index].Value != ".")
                 battle.checkCell(battle.GameField[index].ToString());
             fillListButtons();
