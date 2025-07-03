@@ -12,29 +12,81 @@ namespace SeeBut2025
 { 
     public class Battle : Field
     {
-        public void checkCell(String cell)
+        int maxSizeShip = 4;
+        public struct Injured
         {
+            public int countInjuredCells;
+            public string startCellShipInjured;
+            public string injuredPozV_G;
+            public List<Cell> possibleCells;
+            public Cell cellFirst;
+            public Cell cellLastInjured;
+        }
+        Injured injured = new Injured();
+
+        public void ComputerLogic(Cell cell)
+        {
+            injured.countInjuredCells++;
+            injured.possibleCells.Clear();
+            if (!checkCell(cell.ToString())) {
+                if (injured.cellFirst == null) {
+                    injured.cellFirst = cell;
+                    foreach (var gameCell in GameField)
+                    {
+                        if ((gameCell.Y == cell.Y && (gameCell.X == cell.X-1 || gameCell.X == cell.X - 1)) || 
+                            (gameCell.X == cell.X && (gameCell.Y == cell.Y-1 || gameCell.Y == cell.Y + 1))) {
+                            if (gameCell.Value != "*") injured.possibleCells.Add(gameCell);
+                        }
+                    }
+                }
+                else
+                {
+                    if (injured.cellLastInjured == null)
+                    {
+
+                        injured.cellSecond = cell;
+                        if (injured.cellFirst.X == injured.cellSecond.X) { 
+
+                            injured.injuredPozV_G = "Vertical";
+                            foreach (var gameCell in GameField)
+                            {
+                                if ((gameCell.Y == cell.Y && (gameCell.X == cell.X - 1 || gameCell.X == cell.X - 1)) ||
+                                    (gameCell.X == cell.X && (gameCell.Y == cell.Y - 1 || gameCell.Y == cell.Y + 1)))
+                                {
+                                    if (gameCell.Value != "*") injured.possibleCells.Add(gameCell);
+                                }
+                            }
+                        }
+                        else injured.injuredPozV_G = "Horizontal";
+
+
+                    }
+                }
+             }
+        }
+        public bool checkCell(String cell)
+        {
+            bool win  = false;
             for (int i = ShipsList.Count - 1; i >= 0; i--)
             {
                 for (int j = 0; j < ShipsList[i].ShipCells.Count; j++)
                 {
                     if (ShipsList[i].ShipCells[j] == cell)
                     {
-                        //MessageBox.Show(ShipsList[i].ShipCells.Count.ToString());
                         ShipsList[i].ShipCells.RemoveAt(j);
-                        //MessageBox.Show(ShipsList[i].ShipCells.Count.ToString());
                        if (ShipsList[i].ShipCells.Count == 0) { 
                             PoinAround(ShipsList[i]); 
                             ShipsList.RemoveAt(i);
                             if (ShipsList.Count == 0) { MessageBox.Show("WIN!!!!!"); }
-                            break;
+                            win = true;
                         }
                     }
                 }
             }
+            return win;
         }
 
-            private void PoinAround (Ship ship)
+        private void PoinAround (Ship ship)
         {
                 int startX = ship.StartCell.X - 1;
                 int endX = ship.StartCell.X + 1;
