@@ -14,6 +14,17 @@ namespace SeeBut2025
     public class Battle : Field
     {
         int maxSizeShip = 4;
+         bool isInjured = true;
+        public bool ComputerBattle(Cell cell)
+        {
+            bool flag = true;
+            if (isInjured) { 
+                flag = true;
+                ComputerLogic(cell);
+            }
+                else flag = false;
+                    return flag;
+        }
         public struct Injured
         {
             public int countInjuredCells;
@@ -35,7 +46,7 @@ namespace SeeBut2025
                     injured.cellFirst = cell;
                     foreach (var gameCell in GameField)
                     {
-                        if ((gameCell.Y == cell.Y && (gameCell.X == cell.X-1 || gameCell.X == cell.X - 1)) || 
+                        if ((gameCell.Y == cell.Y && (gameCell.X == cell.X-1 || gameCell.X == cell.X + 1)) || 
                             (gameCell.X == cell.X && (gameCell.Y == cell.Y-1 || gameCell.Y == cell.Y + 1))) {
                             if (gameCell.Value != "*") injured.possibleCells.Add(gameCell);
                         }
@@ -52,8 +63,8 @@ namespace SeeBut2025
                             injured.injuredPozV_G = "Vertical";
                             foreach (var gameCell in GameField)
                             {
-                                if ((gameCell.X == cell.X && 
-                                    (gameCell.Y > injured.cellLastInjured.Y-maxSizeShip && gameCell.Y < injured.cellFirst.Y) ||
+                                if (gameCell.X == cell.X && 
+                                    ((gameCell.Y > injured.cellLastInjured.Y-maxSizeShip && gameCell.Y < injured.cellFirst.Y) ||
                                     (gameCell.Y > injured.cellLastInjured.Y  && gameCell.Y < injured.cellFirst.Y + maxSizeShip)))
                                 {
                                     if (gameCell.Value != "*") injured.possibleCells.Add(gameCell);
@@ -65,13 +76,13 @@ namespace SeeBut2025
                         }
                     }
                 }
-                        for (int i = 0; i < GameField.Count; i++)
-                        {
-                            for (int j = 0; j < injured.possibleCells.Count; j++) {
-                                if (GameField[i].ToString() == injured.possibleCells[j].ToString()) GameField[i].Value = "!";
+                        //for (int i = 0; i < GameField.Count; i++)
+                        //{
+                        //    for (int j = 0; j < injured.possibleCells.Count; j++) {
+                        //        if (GameField[i].ToString() == injured.possibleCells[j].ToString()) GameField[i].Value = "!";
                                     
-                                        }
-             }
+                        //               }
+            // }
         }
         public bool checkCell(String cell)
         {

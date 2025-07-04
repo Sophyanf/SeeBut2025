@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -24,12 +25,11 @@ namespace SeeBat2025
     public partial class MainWindow : Window
     {
         private List<Button> buttonsList = new List<Button>();
-        //public Field field ;
+        private List<Cell> workList = new List<Cell>();
         public Battle battle { get; set; } = new Battle();
 
         public MainWindow()
         {
-            //field = new Field();
             InitializeComponent();
             addButton();
             Comp.Click += computerClick;
@@ -46,32 +46,33 @@ namespace SeeBat2025
                 button.Content = battle.GameField[i].Value;
                 button.Click += playerClick;
             }
-                
+            workList = battle.GameField;
+            foreach (Cell cell in workList) { cell.NumCell = workList.IndexOf(cell); }
         }
         void playerClick(object sender, EventArgs e)
         {
             Button playerButton = (Button)sender;
             playerButton.IsEnabled = false;
-            int index = buttonsList.IndexOf(playerButton);
-            playerButton.Content = battle.GameField[index].Value;
-            if (battle.GameField[index].Value != ".")
-                battle.ComputerLogic(battle.GameField[index]);
-            fillListButtons();
-            for (int i = 0; i < battle.GameField.Count; i++)
-                if (battle.GameField[i].Value == "!") battle.GameField[i].Value = ".";
+            MessageBox.Show(playerButton.ToString());
+            //int index = buttonsList.IndexOf(playerButton);
+            //playerButton.Content = battle.GameField[index].Value;
+            //if (battle.GameField[index].Value != ".")
+            //    battle.ComputerLogic(battle.GameField[index]);
+            //fillListButtons();
+            //for (int i = 0; i < battle.GameField.Count; i++)
+            //    if (battle.GameField[i].Value == "!") battle.GameField[i].Value = ".";
         }
 
         void computerClick(object sender, EventArgs e)
         {
             Random rnd = new Random();
-            int type = rnd.Next(0, 100);
-            Button button = (Button)sender;
-            button.IsEnabled = false;
-            int index = buttonsList.IndexOf(button);
-            button.Content = battle.GameField[index].Value;
-            if (battle.GameField[index].Value != ".")
-                battle.checkCell(battle.GameField[index].ToString());
-            fillListButtons();
+            int buttonNum = rnd.Next(0, workList.Count);
+            Thread.Sleep(5);
+            MessageBox.Show(buttonNum.ToString());
+            int index = workList[buttonNum].NumCell;
+            MessageBox.Show(index.ToString());
+            playerClick(buttonsList[index], e);
+            workList.Remove(workList[buttonNum]);
         }
 
         void fillListButtons()

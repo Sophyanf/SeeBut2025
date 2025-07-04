@@ -8,6 +8,7 @@ namespace SeeBat2025.Resources
 {
     public class Cell
     {
+        public int NumCell { get; set; }
         public int X { get; set; }
         public int Y { get; set; }
         public string Value { get; set; }
