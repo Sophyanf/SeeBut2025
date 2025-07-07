@@ -53,6 +53,7 @@ namespace SeeBat2025
         {
             Button playerButton = (Button)sender;
             playerButton.IsEnabled = false;
+            playerButton.Opacity = 0.7;
             MessageBox.Show(playerButton.ToString());
             //int index = buttonsList.IndexOf(playerButton);
             //playerButton.Content = battle.GameField[index].Value;

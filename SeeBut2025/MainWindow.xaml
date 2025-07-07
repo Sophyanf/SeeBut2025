@@ -6,16 +6,19 @@
         xmlns:local="clr-namespace:SeeBat2025"
         mc:Ignorable="d"
         xmlns:vm="clr-namespace:SeeBat2025"
+        
         Title="MainWindow" Height="450" Width="800">
 
-  
+
+    <Window.Background>
+        <ImageBrush ImageSource="pack://application:,,,/Resources/fon.gif"></ImageBrush>
+    </Window.Background>
 
 
+    <DockPanel x:Name="MainGrid" Background="Transparent">
 
-    <DockPanel x:Name="MainGrid">
-      
-        <UniformGrid Name="field1" Rows="10" Columns="10" Width="250" Height="250"/>
         <Button Name="Comp" Width ="80" Height="40"/>
+        <UniformGrid Name="field1" Rows="10" Columns="10" Width="250" Height="250" Background="Transparent"/>
     </DockPanel>
 
 
