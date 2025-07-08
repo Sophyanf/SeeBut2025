@@ -5,17 +5,38 @@
    
 
 
-    <Style TargetType="Button">
+    <Style  TargetType="Button">
 
-        <Setter Property="Width" Value="25" />
-        <Setter Property="Height" Value="25" />
-        <Setter Property="Command" Value="{Binding }" />
-        <Setter Property="Background" Value=" #CAD9EC" />
+        
+        <Setter Property="Background" Value=" #8d6b45" />
         <Setter Property="BorderThickness" Value="1,1,1,1" />
         <Setter Property="BorderThickness" Value="3"/>
-        <Setter Property="BorderBrush" Value=" #526d8f" />
+        <Setter Property="BorderBrush" Value=" #554f41" />
         <Setter Property="Padding" Value="-4"/>
         <Setter Property="Opacity" Value="0.8"/>
     </Style>
+    
+    <Style x:Key ="ButtonsComp" TargetType="Button">
+        <Setter Property="Background" Value=" #8d6b45" />
+        <Setter Property="BorderThickness" Value="1,1,1,1" />
+        <Setter Property="BorderThickness" Value="3"/>
+        <Setter Property="BorderBrush" Value=" #554f41" />
+        <Setter Property="Opacity" Value="0.8"/>
+        <Setter Property="Width" Value="25" />
+        <Setter Property="Height" Value="25" />
+        
+    </Style>
+
+    <Style x:Key ="ButtonsPlayer" TargetType="Button">
+        <Setter Property="Background" Value=" #8d6b45" />
+        <Setter Property="BorderThickness" Value="1,1,1,1" />
+        <Setter Property="BorderThickness" Value="2"/>
+        <Setter Property="BorderBrush" Value=" #554f41" />
+        <Setter Property="Opacity" Value="0.8"/>
+        <Setter Property="Width" Value="15" />
+        <Setter Property="Height" Value="15" />
+    </Style>
+
+
 
 </ResourceDictionary>

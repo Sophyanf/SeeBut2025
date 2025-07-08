@@ -24,24 +24,36 @@ namespace SeeBat2025
     /// </summary>
     public partial class MainWindow : Window
     {
-        private List<Button> buttonsList = new List<Button>();
+        private List<Button> buttonsListPlayer = new List<Button>();
+        private List<Button> buttonsListComputer = new List<Button>();
         private List<Cell> workList = new List<Cell>();
         public Battle battle { get; set; } = new Battle();
+        public bool ButtonType = true;
 
         public MainWindow()
         {
             InitializeComponent();
-            addButton();
+            addButtons(buttonsListPlayer);
+            addButtons(buttonsListComputer);
             Comp.Click += computerClick;
         }
 
-        private void addButton ()
+        private void addButtons (List <Button> buttonsList)
         {
             
             for (int i = 0; i < 100; i++)
             {
                 Button button = new Button();
-                field1.Children.Add(button);
+                if (buttonsList == buttonsListComputer)
+                {
+                    button.Style = (Style)this.FindResource("ButtonsComp");
+                    field1.Children.Add(button);
+                }
+                    else
+                    {
+                        button.Style = (Style)this.FindResource("ButtonsPlayer");
+                        fieldPlayer.Children.Add(button);
+                    }
                 buttonsList.Add(button);
                 button.Content = battle.GameField[i].Value;
                 button.Click += playerClick;
@@ -53,7 +65,7 @@ namespace SeeBat2025
         {
             Button playerButton = (Button)sender;
             playerButton.IsEnabled = false;
-            playerButton.Opacity = 0.7;
+            playerButton.Opacity = 0.2;
             MessageBox.Show(playerButton.ToString());
             //int index = buttonsList.IndexOf(playerButton);
             //playerButton.Content = battle.GameField[index].Value;
@@ -66,6 +78,11 @@ namespace SeeBat2025
 
         void computerClick(object sender, EventArgs e)
         {
+            computerLogic(buttonsListComputer, e);
+        }
+
+        void computerLogic (List<Button> buttonsList, EventArgs e)
+        {
             Random rnd = new Random();
             int buttonNum = rnd.Next(0, workList.Count);
             Thread.Sleep(5);
@@ -75,8 +92,7 @@ namespace SeeBat2025
             playerClick(buttonsList[index], e);
             workList.Remove(workList[buttonNum]);
         }
-
-        void fillListButtons()
+        void fillListButtons(List<Button> buttonsList)
         {
             for (int i = 0; i < buttonsList.Count; i++)
             {

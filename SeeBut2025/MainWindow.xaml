@@ -11,14 +11,22 @@
 
 
     <Window.Background>
-        <ImageBrush ImageSource="pack://application:,,,/Resources/fon.gif"></ImageBrush>
+        <ImageBrush ImageSource="pack://application:,,,/Resources/fon.jpg"></ImageBrush>
     </Window.Background>
 
 
     <DockPanel x:Name="MainGrid" Background="Transparent">
+        <StackPanel Orientation="Vertical">
 
-        <Button Name="Comp" Width ="80" Height="40"/>
-        <UniformGrid Name="field1" Rows="10" Columns="10" Width="250" Height="250" Background="Transparent"/>
+            <Button Name="Comp" Width ="80" Height="40"/>
+            <Border BorderThickness="5" BorderBrush="#554f41" Width="155" Height="155" Background="Transparent" HorizontalAlignment="Right" Margin="50,200,50,10">
+                <UniformGrid Name="fieldPlayer" Rows="10" Columns="10"/>
+            </Border>
+        </StackPanel>
+        <Border BorderThickness="5" BorderBrush="#554f41" Width="255" Height="255" Background="Transparent" HorizontalAlignment="Right" Margin="0,10,50,10">
+            <UniformGrid Name="field1" Rows="10" Columns="10" />
+        </Border>
+
     </DockPanel>
 
 
