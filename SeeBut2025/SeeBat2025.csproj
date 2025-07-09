@@ -57,7 +57,8 @@
     </ApplicationDefinition>
     <Compile Include="ActionCommand.cs" />
     <Compile Include="Battle.cs" />
-    <Compile Include="Field.cs" />
+    <Compile Include="CompBattle.cs" />
+    <Compile Include="FieldVM.cs" />
     <Compile Include="Models\Cell.cs" />
     <Compile Include="Models\Ship.cs" />
     <Compile Include="StartCellsPossible.cs" />

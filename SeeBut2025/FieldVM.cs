@@ -13,15 +13,15 @@ using System.Windows.Controls;
 
 namespace SeeBat2025
 {
-    public class Field
+    public class FieldVM
     {
         public List<Cell> GameField { get; set; }
-        public List<Ship> ShipsList { get; set; }
+        
         private StartCellsPossible startCellsPossible { get; set; } = new StartCellsPossible();
 
         int count = 0;
 
-        public Field()
+        public FieldVM()
         {
             GameField = new List<Cell>();
             ShipsList = new List<Ship>();
@@ -31,18 +31,18 @@ namespace SeeBat2025
             MessageBox.Show(ShipsList.Count.ToString());
         }
         
-        #region PropertyChanged
-        public event PropertyChangedEventHandler PropertyChanged;
+        #region PropertyСhoiced
+        public event PropertyСhoicedEventHandler PropertyСhoiced;
 
 
-        protected virtual void OnPropertyChanged([CallerMemberName] string property = "")
+        protected virtual void OnPropertyСhoiced([CallerMemberName] string property = "")
         {
-            if (PropertyChanged != null) PropertyChanged(this, new PropertyChangedEventArgs(property));
+            if (PropertyСhoiced != null) PropertyСhoiced(this, new PropertyСhoicedEventArgs(property));
         }
         protected virtual void UpdateValue<T>(ref T field, T value, [CallerMemberName] string property = "")
         {
             field = value;
-            OnPropertyChanged(property);
+            OnPropertyСhoiced(property);
         }
         #endregion
         
@@ -54,7 +54,7 @@ namespace SeeBat2025
             set
             {
                 fieldGame = value;
-                OnPropertyChanged();
+                OnPropertyСhoiced();
             }
         }
 
@@ -75,7 +75,7 @@ namespace SeeBat2025
         {
             count++;
             string typeShip = shipType();
-            List<Cell> workList = startCellsPossible.ChangeList(typeShip, sizeShip);
+            List<Cell> workList = startCellsPossible.СhoiceList(typeShip, sizeShip);
             int startCellNum = new Random().Next(0, workList.Count);
             Cell startCell = workList.ElementAtOrDefault(startCellNum);
             Ship ship = new Ship(startCell, typeShip, sizeShip);
@@ -170,6 +170,34 @@ namespace SeeBat2025
 
 
             MessageBox.Show(string1);
+        }
+        public void PoinAround(Ship ship)
+        {
+            int startX = ship.StartCell.X - 1;
+            int endX = ship.StartCell.X + 1;
+            int startY = ship.StartCell.Y - 1;
+            int endY = ship.StartCell.Y + ship.SizeShip;
+
+            for (int i = 0; i < GameField.Count; i++)
+            {
+                if (ship.ShipPozV_G != "vertical")
+                {
+                    endX = ship.StartCell.X + ship.SizeShip;
+                    endY = ship.StartCell.Y + 1;
+                    if (GameField[i].X >= ship.StartCell.X && GameField[i].X <= ship.StartCell.X + ship.SizeShip - 1 &&
+                        GameField[i].Y == ship.StartCell.Y) { continue; }
+                    else if (GameField[i].X >= startX && GameField[i].X <= endX &&
+                            GameField[i].Y >= startY && GameField[i].Y <= endY) GameField[i].Value = "*";
+                }
+                else
+                {
+                    if (GameField[i].X == ship.StartCell.X &&
+                    GameField[i].Y >= ship.StartCell.Y && GameField[i].Y <= ship.StartCell.Y + ship.SizeShip - 1) { continue; }
+                    else if (GameField[i].X >= startX && GameField[i].X <= endX &&
+                            GameField[i].Y >= startY && GameField[i].Y <= endY)
+                        GameField[i].Value = "*";
+                }
+            }
         }
     }
 }

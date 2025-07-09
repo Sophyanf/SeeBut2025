@@ -11,7 +11,7 @@ using static SeeBut2025.Battle;
 
 namespace SeeBut2025
 { 
-    public class Battle : Field
+    public class Battle : FieldVM
     {
         int maxSizeShip = 4;
          bool isInjured = true;

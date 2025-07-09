@@ -47,7 +47,7 @@ namespace SeeBat2025
             {
 
                 case "horizontal":
-                    workList = ChangeList(type, countCells);
+                    workList = СhoiceList(type, countCells);
                     for (int i = 0; i < 10; i++)
                     {
                         for (int j = 0; j < 10 - countCells + 1; j++)
@@ -61,7 +61,7 @@ namespace SeeBat2025
                     {
                         for (int j = 0; j < 10; j++)
                         {
-                            ChangeList(type, countCells).Add(new Cell(j, i));
+                            СhoiceList(type, countCells).Add(new Cell(j, i));
                         }
                     }
                     break;
@@ -71,7 +71,7 @@ namespace SeeBat2025
                     {
                         for (int j = 0; j < 10; j++)
                         {
-                            ChangeList(type, countCells).Add(new Cell(j, i));
+                            СhoiceList(type, countCells).Add(new Cell(j, i));
                         }
                     }
                     break;
@@ -80,94 +80,94 @@ namespace SeeBat2025
                     break;
             }
         }
-        #region ChangedLists
-        public List<Cell> ChangeList(string type, int countCells)
+        #region СhoicedLists
+        public List<Cell> СhoiceList(string type, int countCells)
         {
-            List<Cell> changeList = new List<Cell>();
+            List<Cell> СhoiceList = new List<Cell>();
 
             switch (countCells)
             {
                 case 4:
-                    changeList = ChangeList4(type);
+                    СhoiceList = СhoiceList4(type);
                     break;
                 case 3:
-                    changeList = ChangeList3(type);
+                    СhoiceList = СhoiceList3(type);
                     break;
                 case 2:
-                    changeList = ChangeList2(type);
+                    СhoiceList = СhoiceList2(type);
                     break;
                 case 1:
-                    changeList = ChangeList1();
+                    СhoiceList = СhoiceList1();
                     break;
 
                 default:
                     break;
             }
-            return changeList;
+            return СhoiceList;
         }
        
-        private List<Cell> ChangeList4(string type)
+        private List<Cell> СhoiceList4(string type)
         {
-            List<Cell> changeList = new List<Cell>();
+            List<Cell> СhoiceList = new List<Cell>();
             
             switch (type)
             {
                 case "horizontal":
-                    changeList = CellsStartHorizontal4;
+                    СhoiceList = CellsStartHorizontal4;
                     break;
                 case "vertical":
 
-                    changeList = CellsStartVertical4;
+                    СhoiceList = CellsStartVertical4;
                     break;
 
                 default:
                     break;
             }
-           return changeList;
+           return СhoiceList;
         }
 
        
-        private List<Cell> ChangeList3(string type)
+        private List<Cell> СhoiceList3(string type)
     {
-        List<Cell> changeList = new List<Cell>();
+        List<Cell> СhoiceList = new List<Cell>();
 
         switch (type)
         {
             case "horizontal":
-                changeList = CellsStartHorizontal3;
+                СhoiceList = CellsStartHorizontal3;
                 break;
             case "vertical":
 
-                changeList = CellsStartVertical3;
+                СhoiceList = CellsStartVertical3;
                 break;
 
             default:
                 break;
         }
-        return changeList;
+        return СhoiceList;
     }
 
-        private List<Cell> ChangeList2(string type)
+        private List<Cell> СhoiceList2(string type)
         {
-            List<Cell> changeList = new List<Cell>();
+            List<Cell> СhoiceList = new List<Cell>();
 
             switch (type)
             {
                 case "horizontal":
-                    changeList = CellsStartHorizontal2;
+                    СhoiceList = CellsStartHorizontal2;
                     break;
                 case "vertical":
 
-                    changeList = CellsStartVertical2;
+                    СhoiceList = CellsStartVertical2;
                     break;
 
                 default:
                     break;
             }
-            return changeList;
+            return СhoiceList;
         }
 
-        private List<Cell> ChangeList1()
+        private List<Cell> СhoiceList1()
         {
             return CellsStart1;
         }
@@ -187,7 +187,7 @@ namespace SeeBat2025
         }
         private void RemoveStartCellsVertShip(Ship ship, int countCells)
         {
-            var workList = ChangeList("vertical", countCells);
+            var workList = СhoiceList("vertical", countCells);
             coordsForRemove.checkStartX = ship.StartCell.X - 1;
             coordsForRemove.checkEndX = ship.StartCell.X + 1;
             coordsForRemove.checkStartY = ship.StartCell.Y - countCells;
@@ -199,7 +199,7 @@ namespace SeeBat2025
                     workList.Remove(cell);
             }
 
-            workList = ChangeList("horizontal", countCells);
+            workList = СhoiceList("horizontal", countCells);
             coordsForRemove.checkStartX = ship.StartCell.X - countCells;
             coordsForRemove.checkEndY = ship.StartCell.Y + ship.SizeShip;
             for (int i = workList.Count - 1; i >= 0; i--)
@@ -212,7 +212,7 @@ namespace SeeBat2025
 
         private void RemoveStartCellsHorizShip(Ship ship, int countCells)
         {
-            var workList = ChangeList("horizontal", countCells);
+            var workList = СhoiceList("horizontal", countCells);
             coordsForRemove.checkStartX = ship.StartCell.X - countCells;
             coordsForRemove.checkEndX = ship.StartCell.X + ship.SizeShip;
             coordsForRemove.checkStartY = ship.StartCell.Y - 1;
@@ -224,7 +224,7 @@ namespace SeeBat2025
                     workList.Remove(cell);
             }
 
-            workList = ChangeList("vertical", countCells);
+            workList = СhoiceList("vertical", countCells);
             //coordsForRemove.checkStartX = ship.StartCell.X - 1;
             coordsForRemove.checkEndX = ship.StartCell.X + ship.SizeShip;
             coordsForRemove.checkStartY = ship.StartCell.Y - countCells;

@@ -34,6 +34,7 @@ namespace SeeBat2025
         {
             InitializeComponent();
             addButtons(buttonsListPlayer);
+            Thread.Sleep(5);
             addButtons(buttonsListComputer);
             Comp.Click += computerClick;
         }
@@ -48,15 +49,17 @@ namespace SeeBat2025
                 {
                     button.Style = (Style)this.FindResource("ButtonsComp");
                     field1.Children.Add(button);
+                    button.Click += playerClick;
                 }
                     else
                     {
                         button.Style = (Style)this.FindResource("ButtonsPlayer");
                         fieldPlayer.Children.Add(button);
+                    button.Click += computerClick;
                     }
                 buttonsList.Add(button);
                 button.Content = battle.GameField[i].Value;
-                button.Click += playerClick;
+                
             }
             workList = battle.GameField;
             foreach (Cell cell in workList) { cell.NumCell = workList.IndexOf(cell); }
@@ -66,7 +69,6 @@ namespace SeeBat2025
             Button playerButton = (Button)sender;
             playerButton.IsEnabled = false;
             playerButton.Opacity = 0.2;
-            MessageBox.Show(playerButton.ToString());
             //int index = buttonsList.IndexOf(playerButton);
             //playerButton.Content = battle.GameField[index].Value;
             //if (battle.GameField[index].Value != ".")
