@@ -26,6 +26,7 @@ namespace SeeBat2025
     {
         private List<Button> buttonsListPlayer = new List<Button>();
         private List<Button> buttonsListComputer = new List<Button>();
+        public FieldVM fieldVM = new FieldVM();
         private List<Cell> workList = new List<Cell>();
         public Battle battle { get; set; } = new Battle();
         public bool ButtonType = true;
@@ -33,6 +34,7 @@ namespace SeeBat2025
         public MainWindow()
         {
             InitializeComponent();
+            this.DataContext = fieldVM;
             addButtons(buttonsListPlayer);
             Thread.Sleep(5);
             addButtons(buttonsListComputer);
@@ -41,36 +43,49 @@ namespace SeeBat2025
 
         private void addButtons (List <Button> buttonsList)
         {
-            
             for (int i = 0; i < 100; i++)
             {
                 Button button = new Button();
                 if (buttonsList == buttonsListComputer)
                 {
+
                     button.Style = (Style)this.FindResource("ButtonsComp");
                     field1.Children.Add(button);
                     button.Click += playerClick;
+                    workList = fieldVM.FieldGameComp;
+                    var binding = new Binding($"FieldGameComp[{i}].Value");
+                    button.SetBinding(Button.ContentProperty, binding);
                 }
                     else
                     {
                         button.Style = (Style)this.FindResource("ButtonsPlayer");
                         fieldPlayer.Children.Add(button);
-                    button.Click += computerClick;
-                    }
-                buttonsList.Add(button);
-                button.Content = battle.GameField[i].Value;
+                        button.Click += computerClick;
+                        workList = fieldVM.playerField.FieldGame;
+                    var binding = new Binding($"FieldGamePlayer[{i}].Value");
+                    button.SetBinding(Button.ContentProperty, binding);
+                }
                 
+                buttonsList.Add(button);
             }
-            workList = battle.GameField;
             foreach (Cell cell in workList) { cell.NumCell = workList.IndexOf(cell); }
         }
         void playerClick(object sender, EventArgs e)
         {
             Button playerButton = (Button)sender;
-            playerButton.IsEnabled = false;
-            playerButton.Opacity = 0.2;
-            //int index = buttonsList.IndexOf(playerButton);
-            //playerButton.Content = battle.GameField[index].Value;
+           // playerButton.IsEnabled = false;
+            int index = buttonsListComputer.IndexOf(playerButton);
+            if (!fieldVM.FreeCell(index, "player"))
+            {
+                TextBlock textBlock = new TextBlock();
+                textBlock.Width = 18;
+                textBlock.Background = new SolidColorBrush(Colors.Yellow);
+                textBlock.Foreground = new SolidColorBrush(Colors.Red);
+                textBlock.TextAlignment = TextAlignment.Center;
+                textBlock.Text = playerButton.Content.ToString();
+                playerButton.Content = textBlock;
+            }
+            else playerButton.Opacity = 0.2;
             //if (battle.GameField[index].Value != ".")
             //    battle.ComputerLogic(battle.GameField[index]);
             //fillListButtons();
@@ -96,12 +111,12 @@ namespace SeeBat2025
         }
         void fillListButtons(List<Button> buttonsList)
         {
-            for (int i = 0; i < buttonsList.Count; i++)
-            {
-                buttonsList[i].Content = battle.GameField[i].Value;
-                if (battle.GameField[i].Value == "*")
-                    buttonsList[i].IsEnabled = false;
-            }
+            //for (int i = 0; i < buttonsList.Count; i++)
+            //{
+            //    buttonsList[i].Content = fieldVM.GameField[i].Value;
+            //    if (fieldVM.GameField[i].Value == "*")
+            //        buttonsList[i].IsEnabled = false;
+            //}
         }
     }
 }

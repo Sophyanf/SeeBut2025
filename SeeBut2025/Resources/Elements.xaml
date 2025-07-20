@@ -15,7 +15,12 @@
         <Setter Property="Padding" Value="-4"/>
         <Setter Property="Opacity" Value="0.8"/>
     </Style>
-    
+
+    <Style x:Key="ButtonDisabledYellow" TargetType="Button">
+        <Setter Property="IsEnabled" Value="False"/>
+        <Setter Property="Background" Value="Yellow"/>
+    </Style>
+
     <Style x:Key ="ButtonsComp" TargetType="Button">
         <Setter Property="Background" Value=" #8d6b45" />
         <Setter Property="BorderThickness" Value="1,1,1,1" />

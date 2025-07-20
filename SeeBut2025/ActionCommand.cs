@@ -12,6 +12,8 @@ namespace SeeBat2025
         private readonly Action<object> execute;
         private readonly Func<object, bool> canExecute;
 
+        public event EventHandler CanExecuteChanged;
+
         public event EventHandler CanExecuteСhoiced
         {
             add => CommandManager.RequerySuggested += value;
