@@ -15,6 +15,7 @@ namespace SeeBat2025
         public int SizeShip { get; set; }
         public int ShipLifes { get; set; } 
         public List<string> ShipCells { get; set; } = new List<string>();
+        public Ship() { }
         public Ship(Cell cell, string shipPoz, int size) {
             StartCell = cell;
             ShipPozV_G = shipPoz;

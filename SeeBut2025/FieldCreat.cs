@@ -8,21 +8,27 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace SeeBut2025
 {
     public class FieldCreat
     {
-        private StartCellsPossible startCellsPossible { get; set; } = new StartCellsPossible();
         public List<Cell> FieldGame = new List<Cell>();
+        private StartCellsPossible startCellsPossible { get; set; } = new StartCellsPossible();
+        public List<Ship> ShipsList { get; set; } = new List<Ship>();
         int count = 0;
 
         public FieldCreat()
         {
-            // battle.ShipsList = new List<Ship>();
             fillList();
             fillShips();
-            //   MessageBox.Show(battle.ShipsList.Count.ToString());
+            String str = "";
+            foreach (Ship ship in ShipsList) {
+                
+                    str += ship.StartCell.NumCell.ToString(); 
+            }
+               MessageBox.Show(str);
         }
 
      
@@ -33,7 +39,7 @@ namespace SeeBut2025
             for (int i = 0; i < 10; i++)
                 for (int j = 0; j < 10; j++)
                 {
-                    Cell cell = new Cell { X = j, Y = i, Value = "." };
+                    Cell cell = new Cell { NumCell = count, X = j, Y = i, Value = "." };
                     FieldGame.Add(cell);
                     count++;
                 }
@@ -47,14 +53,14 @@ namespace SeeBut2025
             List<Cell> workList = startCellsPossible.СhoiceList(typeShip, sizeShip);
             int startCellNum = new Random().Next(0, workList.Count);
             Cell startCell = workList.ElementAtOrDefault(startCellNum);
+            
             Ship ship = new Ship(startCell, typeShip, sizeShip);
-            //MessageBox.Show(count.ToString());
             addShip(ship);
         }
 
         private void addShip(Ship ship)
         {
-            //MessageBox.Show(ship.StartCell.X.ToString() + " " + ship.StartCell.Y.ToString());
+            
             if (ship.ShipPozV_G == "vertical")
             {
                 foreach (Cell cell in FieldGame)
@@ -69,7 +75,7 @@ namespace SeeBut2025
                     if (cell.Y == ship.StartCell.Y && cell.X >= ship.StartCell.X && cell.X < ship.StartCell.X + ship.SizeShip) cell.Value = count.ToString();
                 }
             }
-            //   battle.ShipsList.Add(ship);
+            ShipsList.Add(ship);
             //MessageBox.Show(ShipsList.Count.ToString() + " : " + ship.StartCell.X.ToString() + " " + ship.StartCell.Y.ToString());
             fillingListCells(ship);
             startCellsPossible.RemoveStartCells(ship, 3);

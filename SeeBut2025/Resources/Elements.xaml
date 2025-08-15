@@ -6,8 +6,6 @@
 
 
     <Style  TargetType="Button">
-
-        
         <Setter Property="Background" Value=" #8d6b45" />
         <Setter Property="BorderThickness" Value="1,1,1,1" />
         <Setter Property="BorderThickness" Value="3"/>
@@ -16,28 +14,24 @@
         <Setter Property="Opacity" Value="0.8"/>
     </Style>
 
-    <Style x:Key="ButtonDisabledYellow" TargetType="Button">
-        <Setter Property="IsEnabled" Value="False"/>
-        <Setter Property="Background" Value="Yellow"/>
-    </Style>
-
+   
     <Style x:Key ="ButtonsComp" TargetType="Button">
-        <Setter Property="Background" Value=" #8d6b45" />
+        <Setter Property="Background" Value=" #7faedc" />
         <Setter Property="BorderThickness" Value="1,1,1,1" />
         <Setter Property="BorderThickness" Value="3"/>
-        <Setter Property="BorderBrush" Value=" #554f41" />
-        <Setter Property="Opacity" Value="0.8"/>
+        <Setter Property="BorderBrush" Value=" #4a5d7c" />
+        <Setter Property="Opacity" Value="0.6"/>
         <Setter Property="Width" Value="25" />
         <Setter Property="Height" Value="25" />
         
     </Style>
 
     <Style x:Key ="ButtonsPlayer" TargetType="Button">
-        <Setter Property="Background" Value=" #8d6b45" />
+        <Setter Property="Background" Value=" #7faedc" />
         <Setter Property="BorderThickness" Value="1,1,1,1" />
         <Setter Property="BorderThickness" Value="2"/>
-        <Setter Property="BorderBrush" Value=" #554f41" />
-        <Setter Property="Opacity" Value="0.8"/>
+        <Setter Property="BorderBrush" Value=" #4a5d7c" />
+        <Setter Property="Opacity" Value="0.6"/>
         <Setter Property="Width" Value="15" />
         <Setter Property="Height" Value="15" />
     </Style>

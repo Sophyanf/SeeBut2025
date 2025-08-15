@@ -28,8 +28,7 @@ namespace SeeBat2025
         private List<Button> buttonsListComputer = new List<Button>();
         public FieldVM fieldVM = new FieldVM();
         private List<Cell> workList = new List<Cell>();
-        public Battle battle { get; set; } = new Battle();
-        public bool ButtonType = true;
+        private Binding binding = new Binding();
 
         public MainWindow()
         {
@@ -53,8 +52,8 @@ namespace SeeBat2025
                     field1.Children.Add(button);
                     button.Click += playerClick;
                     workList = fieldVM.FieldGameComp;
-                    var binding = new Binding($"FieldGameComp[{i}].Value");
-                    button.SetBinding(Button.ContentProperty, binding);
+                    binding = new Binding($"FieldGameComp[{i}].Value");
+                    
                 }
                     else
                     {
@@ -62,10 +61,9 @@ namespace SeeBat2025
                         fieldPlayer.Children.Add(button);
                         button.Click += computerClick;
                         workList = fieldVM.playerField.FieldGame;
-                    var binding = new Binding($"FieldGamePlayer[{i}].Value");
-                    button.SetBinding(Button.ContentProperty, binding);
+                    binding = new Binding($"FieldGamePlayer[{i}].Value");
                 }
-                
+                button.SetBinding(Button.ContentProperty, binding);
                 buttonsList.Add(button);
             }
             foreach (Cell cell in workList) { cell.NumCell = workList.IndexOf(cell); }
@@ -73,26 +71,59 @@ namespace SeeBat2025
         void playerClick(object sender, EventArgs e)
         {
             Button playerButton = (Button)sender;
-           // playerButton.IsEnabled = false;
+            TextBlock textBlock = new TextBlock();
+            playerButton.IsEnabled = false;
             int index = buttonsListComputer.IndexOf(playerButton);
-            if (!fieldVM.FreeCell(index, "player"))
+            if (fieldVM.FreeCell(index, fieldVM.compField))
             {
-                TextBlock textBlock = new TextBlock();
-                textBlock.Width = 18;
-                textBlock.Background = new SolidColorBrush(Colors.Yellow);
-                textBlock.Foreground = new SolidColorBrush(Colors.Red);
-                textBlock.TextAlignment = TextAlignment.Center;
-                textBlock.Text = playerButton.Content.ToString();
+                textBlock = textBlockResultOfPressing("Transparent");
                 playerButton.Content = textBlock;
             }
-            else playerButton.Opacity = 0.2;
-            //if (battle.GameField[index].Value != ".")
-            //    battle.ComputerLogic(battle.GameField[index]);
-            //fillListButtons();
-            //for (int i = 0; i < battle.GameField.Count; i++)
-            //    if (battle.GameField[i].Value == "!") battle.GameField[i].Value = ".";
+            else
+                {
+                Ship ship = fieldVM.CheckKilledShip(index,fieldVM.compField);
+                if (ship == null)
+                {
+                    textBlock = textBlockResultOfPressing("Yellow"); playerButton.Content = textBlock;
+                }
+                    else
+                    {
+                        for (int i = ship.StartCell.NumCell; i < ship.StartCell.NumCell + ship.SizeShip; i++)
+                        {
+                            textBlock = textBlockResultOfPressing("Red");
+                            buttonsListComputer[i].Content = textBlock;
+                        }
+                    }
+                }
+                
         }
 
+       
+        TextBlock textBlockResultOfPressing (String color)
+        {
+            TextBlock textBlock = new TextBlock();
+            textBlock.Width = 18;
+            textBlock.TextAlignment = TextAlignment.Center;
+            switch (color)
+            {
+                case "Transparent":
+                    textBlock.Background = new SolidColorBrush(Colors.Transparent);
+                    textBlock.Foreground = new SolidColorBrush(Colors.Black);
+                    textBlock.Text = ".";
+                    break;
+                case "Yellow":
+                    textBlock.Background = new SolidColorBrush(Colors.Yellow);
+                    textBlock.Foreground = new SolidColorBrush(Colors.Black);
+                    textBlock.Text = "(!)";
+                    break;
+                case "Red":
+                    textBlock.Background = new SolidColorBrush(Colors.Red);
+                    textBlock.Foreground = new SolidColorBrush(Colors.Black);
+                    textBlock.Text = "X";
+                    break;
+            }
+            return textBlock;
+        }
         void computerClick(object sender, EventArgs e)
         {
             computerLogic(buttonsListComputer, e);

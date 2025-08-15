@@ -1,5 +1,6 @@
 ﻿using SeeBat2025;
 using SeeBat2025.Resources;
+using SeeBut2025;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.Eventing.Reader;
@@ -19,17 +20,21 @@ namespace SeeBat2025
         public List<Cell> CellsStartHorizontal2 = new List<Cell>();
         public List<Cell> CellsStartVertical2 = new List<Cell>();
         public List<Cell> CellsStart1 = new List<Cell>();
+        private List<Cell> workList = new List<Cell>();
         public struct CoordsForRemove
         {
             public int checkStartX;
             public int checkEndX;
             public int checkStartY;
             public int checkEndY;
+            
         }
         CoordsForRemove coordsForRemove = new CoordsForRemove();
 
-        public StartCellsPossible()    //конструктор
+        public StartCellsPossible() { }
+        public StartCellsPossible(FieldCreat fieldCreat)    //конструктор
         {
+            workList = fieldCreat.FieldGame;
             fillList("horizontal", 4);
             fillList("vertical", 4);
             fillList("horizontal", 3);
@@ -40,9 +45,9 @@ namespace SeeBat2025
         }  
 
 
-        private void fillList(string type, int countCells)
+        private void fillList(string type, int countCells )
         {
-            var workList = new List<Cell>();
+             
             switch (type)
             {
 

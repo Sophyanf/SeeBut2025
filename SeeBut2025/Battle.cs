@@ -15,38 +15,41 @@ namespace SeeBut2025
     public class Battle {
 
         protected int maxSizeShip = 4;
-        public List<Ship> ShipsList { get; set; }
+        
 
 
-        public bool CheckCell(String cell, String player)
+        public Ship KilledShip(Cell cell, FieldCreat fieldCreat)  // "String player" для выбора ShipsList
         {
-            bool win  = false;
-            for (int i = ShipsList.Count - 1; i >= 0; i--)
+            
+            Ship ship = null;
+            for (int i = fieldCreat.ShipsList.Count - 1; i >= 0; i--)
             {
-                for (int j = 0; j < ShipsList[i].ShipCells.Count; j++)
+                for (int j = 0; j < fieldCreat.ShipsList[i].ShipCells.Count; j++)
                 {
-                    if (ShipsList[i].ShipCells[j] == cell)
+                    if (fieldCreat.ShipsList[i].ShipCells[j] == cell.ToString())
                     {
-                        ShipsList[i].ShipCells.RemoveAt(j);
-                       if (ShipsList[i].ShipCells.Count == 0) { 
-                            //choiceField(player).PoinAround(ShipsList[i]); 
-                            ShipsList.RemoveAt(i);
-                            if (ShipsList.Count == 0) { MessageBox.Show("WIN!!!!!"); }
-                            win = true;
+                        if (fieldCreat.ShipsList[i].ShipCells.Count == 1)
+                        {
+                            MessageBox.Show(fieldCreat.ShipsList[i].ToString());
+                            ship = fieldCreat.ShipsList[i];
+                            fieldCreat.ShipsList.RemoveAt(i);
                         }
+                        else
+                            fieldCreat.ShipsList[i].ShipCells.RemoveAt(j);
+                        //MessageBox.Show(fieldCreat.ShipsList[i].ShipCells.ToString());
                     }
                 }
             }
-            return win;
+            return ship;
         }
         public void shipsCoord()
         {
-            string string1 = "";
-            foreach (var ship in ShipsList)
-                string1 += ship.StartCell.X.ToString() + " " + ship.StartCell.Y.ToString() + "\n";
+            //string string1 = "";
+            //foreach (var ship in fieldCreatShipsList)
+            //    string1 += ship.StartCell.X.ToString() + " " + ship.StartCell.Y.ToString() + "\n";
 
 
-            MessageBox.Show(string1);
+            //MessageBox.Show(string1);
         }
     }
 }
