@@ -20,7 +20,7 @@ namespace SeeBat2025
         public List<Cell> CellsStartHorizontal2 = new List<Cell>();
         public List<Cell> CellsStartVertical2 = new List<Cell>();
         public List<Cell> CellsStart1 = new List<Cell>();
-        private List<Cell> workList = new List<Cell>();
+        private List<Cell> gameField = new List<Cell>();
         public struct CoordsForRemove
         {
             public int checkStartX;
@@ -32,9 +32,9 @@ namespace SeeBat2025
         CoordsForRemove coordsForRemove = new CoordsForRemove();
 
         public StartCellsPossible() { }
-        public StartCellsPossible(FieldCreat fieldCreat)    //конструктор
+        public StartCellsPossible(FieldForGame fieldCreat)    //конструктор
         {
-            workList = fieldCreat.FieldGame;
+            gameField = fieldCreat.FieldGame;
             fillList("horizontal", 4);
             fillList("vertical", 4);
             fillList("horizontal", 3);
@@ -44,40 +44,42 @@ namespace SeeBat2025
             fillList(" ", 1);
         }  
 
+        private void CreatList (Cell gameCell, List<Cell> workList, int countPossibleX, int countPossibleY)
+        {
+            for (int i = 0; i < countPossibleY; i++)
+            {
+                for (int j = 0; j < countPossibleX; j++)
+                {
+                    if (gameCell.X == j && gameCell.Y == i)
+                        workList.Add(gameCell);
+                }
+            }
+        }
 
         private void fillList(string type, int countCells )
         {
-             
+            List < Cell > workList = СhoiceList(type, countCells);
             switch (type)
             {
-
+               
                 case "horizontal":
-                    workList = СhoiceList(type, countCells);
-                    for (int i = 0; i < 10; i++)
+                    foreach (Cell gameCell in gameField)
                     {
-                        for (int j = 0; j < 10 - countCells + 1; j++)
-                        {
-                            workList.Add(new Cell(j, i));
-                        }
+                        CreatList(gameCell, workList, 10 - countCells + 1, 10);
+                        
                     }
                     break;
                 case "vertical":
-                    for (int i = 0; i < 10 - countCells + 1; i++)
+                    foreach (Cell gameCell in gameField)
                     {
-                        for (int j = 0; j < 10; j++)
-                        {
-                            СhoiceList(type, countCells).Add(new Cell(j, i));
-                        }
+                        CreatList(gameCell, workList, 10, 10 - countCells + 1);
                     }
                     break;
 
                 case " ":
-                    for (int i = 0; i < 10 - countCells + 1; i++)
+                    foreach (Cell gameCell in gameField)
                     {
-                        for (int j = 0; j < 10; j++)
-                        {
-                            СhoiceList(type, countCells).Add(new Cell(j, i));
-                        }
+                        CreatList(gameCell, workList, 10, 10);
                     }
                     break;
 

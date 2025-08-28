@@ -12,16 +12,17 @@ using System.Windows;
 
 namespace SeeBut2025
 {
-    public class FieldCreat
+    public class FieldForGame
     {
         public List<Cell> FieldGame = new List<Cell>();
-        private StartCellsPossible startCellsPossible { get; set; } = new StartCellsPossible();
+        private StartCellsPossible startCellsPossible { get; set; } 
         public List<Ship> ShipsList { get; set; } = new List<Ship>();
         int count = 0;
 
-        public FieldCreat()
+        public FieldForGame()
         {
             fillList();
+            startCellsPossible = new StartCellsPossible(this);
             fillShips();
             String str = "";
             foreach (Ship ship in ShipsList) {
@@ -30,8 +31,6 @@ namespace SeeBut2025
             }
                MessageBox.Show(str);
         }
-
-     
 
         private void fillList()
         {
@@ -49,11 +48,11 @@ namespace SeeBut2025
         private void shipCreat(int sizeShip)
         {
             count++;
-            string typeShip = shipType();
+            string typeShip = "";
+            if (sizeShip != 1) typeShip = shipType();
             List<Cell> workList = startCellsPossible.СhoiceList(typeShip, sizeShip);
             int startCellNum = new Random().Next(0, workList.Count);
             Cell startCell = workList.ElementAtOrDefault(startCellNum);
-            
             Ship ship = new Ship(startCell, typeShip, sizeShip);
             addShip(ship);
         }
@@ -76,11 +75,27 @@ namespace SeeBut2025
                 }
             }
             ShipsList.Add(ship);
-            //MessageBox.Show(ShipsList.Count.ToString() + " : " + ship.StartCell.X.ToString() + " " + ship.StartCell.Y.ToString());
             fillingListCells(ship);
-            startCellsPossible.RemoveStartCells(ship, 3);
-            startCellsPossible.RemoveStartCells(ship, 2);
-            startCellsPossible.RemoveStartCells(ship, 1);
+            fillPossibleStartCellsShips(ship);
+        }
+
+        private void fillPossibleStartCellsShips (Ship ship)
+        {
+            if (count == 1 || count == 2)
+            {
+                startCellsPossible.RemoveStartCells(ship, 3);
+                startCellsPossible.RemoveStartCells(ship, 2);
+                startCellsPossible.RemoveStartCells(ship, 1);
+            }
+                else if (count >= 3 && count <=5)
+                {
+                    startCellsPossible.RemoveStartCells(ship, 2);
+                    startCellsPossible.RemoveStartCells(ship, 1);
+                }
+                    else if (count >=6 && count <=9)
+                    {
+                        startCellsPossible.RemoveStartCells(ship, 1);
+                    }
         }
 
         private void fillingListCells(Ship ship)
@@ -137,35 +152,6 @@ namespace SeeBut2025
             {
                 shipCreat(1);
                 Thread.Sleep(1);
-            }
-        }
-
-        public void PoinAround(Ship ship)
-        {
-            int startX = ship.StartCell.X - 1;
-            int endX = ship.StartCell.X + 1;
-            int startY = ship.StartCell.Y - 1;
-            int endY = ship.StartCell.Y + ship.SizeShip;
-
-            for (int i = 0; i < FieldGame.Count; i++)
-            {
-                if (ship.ShipPozV_G != "vertical")
-                {
-                    endX = ship.StartCell.X + ship.SizeShip;
-                    endY = ship.StartCell.Y + 1;
-                    if (FieldGame[i].X >= ship.StartCell.X && FieldGame[i].X <= ship.StartCell.X + ship.SizeShip - 1 &&
-                        FieldGame[i].Y == ship.StartCell.Y) { continue; }
-                    else if (FieldGame[i].X >= startX && FieldGame[i].X <= endX &&
-                            FieldGame[i].Y >= startY && FieldGame[i].Y <= endY) FieldGame[i].Value = "*";
-                }
-                else
-                {
-                    if (FieldGame[i].X == ship.StartCell.X &&
-                    FieldGame[i].Y >= ship.StartCell.Y && FieldGame[i].Y <= ship.StartCell.Y + ship.SizeShip - 1) { continue; }
-                    else if (FieldGame[i].X >= startX && FieldGame[i].X <= endX &&
-                            FieldGame[i].Y >= startY && FieldGame[i].Y <= endY)
-                        FieldGame[i].Value = "*";
-                }
             }
         }
     }

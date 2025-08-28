@@ -18,34 +18,35 @@ namespace SeeBut2025
         
 
 
-        public Ship KilledShip(Cell cell, FieldCreat fieldCreat)  // "String player" для выбора ShipsList
+        public Ship KilledShip(Cell cell, FieldForGame fieldForGame)  // "String player" для выбора ShipsList
         {
             
             Ship ship = null;
-            for (int i = fieldCreat.ShipsList.Count - 1; i >= 0; i--)
+            for (int i = fieldForGame.ShipsList.Count - 1; i >= 0; i--)
             {
-                for (int j = 0; j < fieldCreat.ShipsList[i].ShipCells.Count; j++)
+                //MessageBox.Show(fieldForGame.ShipsList[i].ShipCells.Count.ToString());
+                for (int j = 0; j < fieldForGame.ShipsList[i].ShipCells.Count; j++)
                 {
-                    if (fieldCreat.ShipsList[i].ShipCells[j] == cell.ToString())
+                    if (fieldForGame.ShipsList[i].ShipCells[j] == cell.ToString())
                     {
-                        if (fieldCreat.ShipsList[i].ShipCells.Count == 1)
+                        if (fieldForGame.ShipsList[i].ShipCells.Count == 1)
                         {
-                            MessageBox.Show(fieldCreat.ShipsList[i].ToString());
-                            ship = fieldCreat.ShipsList[i];
-                            fieldCreat.ShipsList.RemoveAt(i);
+                            ship = fieldForGame.ShipsList[i];
+                            fieldForGame.ShipsList.RemoveAt(i);
                         }
                         else
-                            fieldCreat.ShipsList[i].ShipCells.RemoveAt(j);
-                        //MessageBox.Show(fieldCreat.ShipsList[i].ShipCells.ToString());
+                            fieldForGame.ShipsList[i].ShipCells.RemoveAt(j);
+                            break;
                     }
                 }
             }
             return ship;
         }
+
         public void shipsCoord()
         {
             //string string1 = "";
-            //foreach (var ship in fieldCreatShipsList)
+            //foreach (var ship in fieldForGameShipsList)
             //    string1 += ship.StartCell.X.ToString() + " " + ship.StartCell.Y.ToString() + "\n";
 
 

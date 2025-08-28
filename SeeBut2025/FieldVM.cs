@@ -17,8 +17,8 @@ namespace SeeBat2025
     public class FieldVM
     {
         public Battle battle = new Battle();
-        public FieldCreat compField = new FieldCreat();
-        public FieldCreat playerField = new FieldCreat();
+        public FieldForGame compField = new FieldForGame();
+        public FieldForGame playerField = new FieldForGame();
 
         public FieldVM() {
             fieldGameComp = compField.FieldGame;
@@ -64,50 +64,42 @@ namespace SeeBat2025
             }
         }
 
-        public bool FreeCell (int  index, FieldCreat fieldCreat)
+        public List<Cell> changePlayer (List<Cell> workList)
+        {
+            if (workList == fieldGamePlayer) workList = fieldGameComp;
+            else workList = fieldGameComp;
+            return workList;
+        }
+        public bool FreeCell (int  index, FieldForGame fieldForGame)
         {
             bool freeCell = true;
-            if (WorkCell(index, fieldCreat).Value != ".") freeCell = false;
+            if (WorkCell(index, fieldForGame).Value != ".") freeCell = false;
             return freeCell;
         }
 
-        public Cell WorkCell(int index, FieldCreat fieldCreat)
+        public Cell WorkCell(int index, FieldForGame fieldForGame)
         {
-            Cell workCell = fieldCreat.FieldGame[index];
+            Cell workCell = fieldForGame.FieldGame[index];
             return workCell;
         }
 
-        //private FieldCreat choiceField(FieldCreat fieldCreat)
-        //{
-            
-        //    switch (fieldCreat)
-        //    {
-        //        case "player":
-        //            workList = compField;
-        //            break;
-
-        //        case "comp":
-        //            workList = playerField;
-        //            break;
-        //    }
-        //    return workList;
-        //} 
-
-        public Ship CheckKilledShip (int index, FieldCreat fieldCreat)
+        
+        public Ship CheckKilledShip (int index, FieldForGame fieldForGame)
         {
-            Ship ship = battle.KilledShip(WorkCell(index, fieldCreat), fieldCreat);
+            Ship ship = battle.KilledShip(WorkCell(index, fieldForGame), fieldForGame);
+            
             return ship;
         }
-        //private bool winCheck ()
-        //{
-        //    bool win = false;
-        //    if (battle.ShipsList.Count == 0)
-        //    {
-        //        MessageBox.Show("WIN!!!!!");
-        //        win = true;
-        //    }
-        //    return win;
-        //}
+        public bool winCheck(FieldForGame fieldForGame)
+        {
+            bool win = false;
+            if (fieldForGame.ShipsList.Count == 0)
+            {
+                MessageBox.Show("WIN!!!!!");
+                win = true;
+            }
+            return win;
+        }
 
     }
 }
